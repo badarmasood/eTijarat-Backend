@@ -6,4 +6,4 @@ const VendorSchema = mongoose.Schema({
     password: String,
 });
 
-module.exports = mongoose.model('vendors', VendorSchema);
+module.exports = mongoose.model('Vendor', VendorSchema);
