@@ -15,11 +15,13 @@ app.use(urlencoded({ extended: true }));
 app.use(express.json());
 
 const PORT = process.env.PORT;
-mongoose.connect('mongodb+srv://etijarat:etijarat@cluster0.rhejtmj.mongodb.net/?retryWrites=true&w=majority')
+const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+
+mongoose.connect(DB_CONNECTION_STRING)
 .then(() => {
   app.listen(PORT , () => console.log(`DB Connection Successfull , Server Running at Port ${PORT}`));
 })
-.catch( err => console.log('DB Connection Failed'))
+.catch( err => console.log(err , 'DB Connection Failed'));
 
 const authMiddleWare = (req, res, next) => {
   const secretKey = process.env.SECRET_KEY;
