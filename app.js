@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 require('dotenv').config();
 
 const app = express();
@@ -38,6 +39,9 @@ app.use(authRoutes);
 
 app.use('/blogs', authMiddleWare , blogRoutes);
 app.use('/products',productRoutes);
+app.use('/orders',orderRoutes);
+
+
 // app.use('/products',authMiddleWare,productRoutes);
 
 app.use( (err , req , res , next) => {
