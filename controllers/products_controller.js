@@ -44,7 +44,6 @@ const create = async (req, res, next) => {
 };
 
 const update = async (req , res , next) => {
-    console.log("I am here in update")
     const id = req.params.id;
     if(!id) {
         return next({ status : 404 , message : 'ID Is Missing' })
