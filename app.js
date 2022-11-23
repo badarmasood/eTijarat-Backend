@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes')
-const orderRoutes = require('./routes/orderRoutes')
+const orderRoutes = require('./routes/orderRoutes');
+const authMiddleWare = require('./middlewares/authMiddleware');
 require('dotenv').config();
 
 const app = express();
@@ -23,19 +24,19 @@ mongoose.connect(DB_CONNECTION_STRING)
 })
 .catch( err => console.log(err , 'DB Connection Failed'));
 
-const authMiddleWare = (req, res, next) => {
-  const secretKey = process.env.SECRET_KEY;
-  const token = req.header('Authorization') || '';
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized access' });
-  }
-  const decode = jwt.decode(token, secretKey);
-  if (!decode) {
-    return res.status(401).json({ message: 'Unauthorized access' });
-  }
-  req.user = decode;
-  next();
-}
+// const authMiddleWare = (req, res, next) => {
+//   const secretKey = process.env.SECRET_KEY;
+//   const token = req.header('Authorization') || '';
+//   if (!token) {
+//     return res.status(401).json({ message: 'Unauthorized access' });
+//   }
+//   const decode = jwt.decode(token, secretKey);
+//   if (!decode) {
+//     return res.status(401).json({ message: 'Unauthorized access' });
+//   }
+//   req.user = decode;
+//   next();
+// }
 
 app.use(authRoutes);
 

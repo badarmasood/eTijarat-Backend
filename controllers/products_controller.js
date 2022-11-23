@@ -30,7 +30,7 @@ const create = async (req, res, next) => {
     stock: req.body.stock,
     description: req.body.description,
     category: req.body.category,
-    discount: req.body.discount,
+    sale_price: req.body.sale_price,
     rating: req.body.rating,
     imgGroup: req.body.imgUrl,
     vendorId: req.body.vendorId,

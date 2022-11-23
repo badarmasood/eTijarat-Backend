@@ -4,6 +4,7 @@ const registerVendorValidation = joi.object({
     name: joi.string().required().max(75),
     email: joi.string().required(),
     password: joi.required(),
+    re_password: joi.string()
 });
 
 const loginVendorValidation = joi.object({
