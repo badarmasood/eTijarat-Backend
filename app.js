@@ -7,6 +7,7 @@ const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes')
 const orderRoutes = require('./routes/orderRoutes');
+const buyerRoutes = require('./routes/buyerRoutes');
 const authMiddleWare = require('./middlewares/authMiddleware');
 require('dotenv').config();
 
@@ -43,6 +44,7 @@ app.use(authRoutes);
 app.use('/blogs', authMiddleWare , blogRoutes);
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
+app.use('/buyer',buyerRoutes);
 
 
 // app.use('/products',authMiddleWare,productRoutes);

@@ -36,6 +36,7 @@ const create = async (req, res, next) => {
     vendorId: req.body.vendorId,
   };
   try {
+    
     const product = await Product.create(data);
     res.status(201).json({ product, message: "Product Created Successfully" });
   } catch (error) {
