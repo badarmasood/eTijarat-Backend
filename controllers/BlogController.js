@@ -22,7 +22,6 @@ const getBlog = async (req, res, next) => {
 };
 
 const getMyBlogs = async (req , res , next) => {
-    console.log('im here')
     const id = req.user.id;
     try {
         const blogs = await Blog.find({ authorDetail: id }).populate('authorDetail', '-email -password').sort({ 'postedAt': -1 });

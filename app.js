@@ -42,9 +42,9 @@ mongoose.connect(DB_CONNECTION_STRING)
 app.use(authRoutes);
 
 app.use('/blogs', authMiddleWare , blogRoutes);
+app.use('/buyer', authMiddleWare , buyerRoutes);
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
-app.use('/buyer',buyerRoutes);
 
 
 // app.use('/products',authMiddleWare,productRoutes);

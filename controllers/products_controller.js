@@ -1,8 +1,4 @@
 const Product = require("../model/ProductSchema");
-const {
-  addBlogValidation,
-  updateBlogValidation,
-} = require("../validations/BlogValidation");
 
 const getAllProducts = async (req, res, next) => {
   try {
@@ -22,6 +18,7 @@ const getProduct = async (req, res, next) => {
         next({ status: 404, message: error.message })
     }
 };
+
 const create = async (req, res, next) => {
   const data = {
     price: req.body.price,
@@ -33,7 +30,7 @@ const create = async (req, res, next) => {
     sale_price: req.body.sale_price,
     rating: req.body.rating,
     imgGroup: req.body.imgUrl,
-    vendorId: req.body.vendorId,
+    vendorId: req.user.id,
   };
   try {
     
@@ -81,5 +78,4 @@ const destroy = async (req , res , next) => {
     }
 };
 
-// module.exports = { getAllProducts, create, update, destroy, getMyBlogs, getBlog }
 module.exports = { getAllProducts, create,destroy,update,getProduct};

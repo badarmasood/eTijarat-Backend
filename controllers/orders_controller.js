@@ -9,22 +9,23 @@ const getAllOrders = async (req, res, next) => {
 };
 
 const getorder = async (req, res, next) => {
-    try {
-        const order = await Order.findById(req.params.id)
-        res.json({ order });
-    }
-    catch (error) {
-        next({ status: 404, message: error.message })
-    }
-};
-const getMyOrders = async (req , res , next) => {
-  const id = req.params.id;
   try {
-      const orders = await Order.find({ buyerId: id })
-      res.json({ orders });
-  } 
+    const order = await Order.findById(req.params.id)
+    res.json({ order });
+  }
   catch (error) {
-      next({ status : 404 , message : error.message})
+    next({ status: 404, message: error.message })
+  }
+};
+const getMyOrders = async (req, res, next) => {
+  const id = req.user.id;
+  console.log(id);
+  try {
+    const orders = await Order.find({ buyerId: id })
+    res.json({ orders });
+  }
+  catch (error) {
+    next({ status: 404, message: error.message })
   }
 };
 const create = async (req, res, next) => {
@@ -43,38 +44,38 @@ const create = async (req, res, next) => {
   }
 };
 
-const update = async (req , res , next) => {
-    const id = req.params.id;
-    if(!id) {
-        return next({ status : 404 , message : 'ID Is Missing' })
-    }
+const update = async (req, res, next) => {
+  const id = req.params.id;
+  if (!id) {
+    return next({ status: 404, message: 'ID Is Missing' })
+  }
 
-    try {
-        const order = await Order.findByIdAndUpdate(id , {
-            $set : {
-                status: req.body.status,
-            }
-        }, {new : true})
-        
-        res.status(201).json({ order , message: "Orders Record Updated" })
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
+  try {
+    const order = await Order.findByIdAndUpdate(id, {
+      $set: {
+        status: req.body.status,
+      }
+    }, { new: true })
+
+    res.status(201).json({ order, message: "Orders Record Updated" })
+  }
+  catch (error) {
+    next({ status: 500, message: error.message })
+  }
 };
 
-const destroy = async (req , res , next) => {
-    const id = req.params.orderID;
-    console.log(id)
-    try {
-        const order = await Order.findByIdAndDelete(id)
-        // console.log(order)
-        res.json({message : 'Order Deleted'});
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
+const destroy = async (req, res, next) => {
+  const id = req.params.orderID;
+  console.log(id)
+  try {
+    const order = await Order.findByIdAndDelete(id)
+    // console.log(order)
+    res.json({ message: 'Order Deleted' });
+  }
+  catch (error) {
+    next({ status: 500, message: error.message })
+  }
 };
 
 // module.exports = { getAllProducts, create, update, destroy, getMyBlogs, getBlog }
-module.exports = { getAllOrders,create,update, destroy, getorder,getMyOrders}
+module.exports = { getAllOrders, create, update, destroy, getorder, getMyOrders }
