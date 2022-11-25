@@ -8,6 +8,7 @@ const BlogSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    comment: [comment],
     postedAt: {
         type: Date,
         default: Date.now

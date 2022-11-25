@@ -1,6 +1,33 @@
 const { number, object } = require("joi");
 const mongoose = require("mongoose");
 
+const address = mongoose.Schema({
+    name: {
+        type: String
+    },
+    address: {
+        type: String
+    }
+});
+
+const card = mongoose.Schema({
+    name: {
+        type: String
+    },
+    number: {
+        type: Number
+    },
+    cvc: {
+        type: Number
+    },
+    expiryMonth: {
+        type: String,
+    },
+    expiryYear: {
+        type: Number,
+    }
+
+});
 
 const buyerSchema = new mongoose.Schema({
     name: {
@@ -18,38 +45,12 @@ const buyerSchema = new mongoose.Schema({
     },
     phone: {
         type: Number,
-        required : false
+        required: false
     },
-    address: [
-        {
-            name : {
-                type : String
-            },
-            address : {
-                type : String
-            }
-        }
-    ],
-    card: [
-        {
-            name : {
-                type : String
-            },
-            number : {
-                type : Number
-            },
-            cvc : {
-                type : Number
-            },     
-            expiryMonth : {
-                type : String,
-            },     
-            expiryYear : {
-                type : Number,
-            }     
-        }
-    ]
+    address: [address],
+    card: [card]
 });
+
 
 
 module.exports = mongoose.model('Buyer', buyerSchema);

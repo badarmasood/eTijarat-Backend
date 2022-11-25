@@ -19,7 +19,6 @@ const getorder = async (req, res, next) => {
 };
 const getMyOrders = async (req, res, next) => {
   const id = req.user.id;
-  console.log(id);
   try {
     const orders = await Order.find({ buyerId: id })
     res.json({ orders });
@@ -66,10 +65,8 @@ const update = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   const id = req.params.orderID;
-  console.log(id)
   try {
     const order = await Order.findByIdAndDelete(id)
-    // console.log(order)
     res.json({ message: 'Order Deleted' });
   }
   catch (error) {
