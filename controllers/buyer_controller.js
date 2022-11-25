@@ -19,11 +19,12 @@ const updateProfile = async (req, res, next) => {
     }
 
     try {
+        
         const buyer = await Buyer.findByIdAndUpdate(id, {
             $set: {
-                name: req.body.name,
+                name: req.body.first_name,
                 email: req.body.email,
-                phone: req.body.phone,
+                phone: req.body.contact,
             }
         }, { new: true })
 

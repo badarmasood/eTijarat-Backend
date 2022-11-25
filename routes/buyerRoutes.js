@@ -8,7 +8,7 @@ router.get('/orders', ordersController.getMyOrders);
 router.get('/order/:id' , ordersController.getorder);
 
 router.get('/profile', buyerController.viewProfile);
-router.get('/profile/update', buyerController.updateProfile);
+router.put('/profile/update', buyerController.updateProfile);
 
 router.get('/addresses', buyerController.getAddresses);
 router.post('/address', buyerController.addAddress);
