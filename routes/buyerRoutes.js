@@ -22,7 +22,7 @@ router.delete('/address/:id', buyerController.deleteAddress);
 // Card Routes
 router.get('/cards', buyerController.getCards);
 router.post('/card/:id?', buyerController.addOrUpdateCard);
-router.put('/card/:id', buyerController.updateCard);
+// router.put('/card/:id', buyerController.updateCard);
 router.delete('/card/:id', buyerController.deleteCard);
 
 module.exports = router;
