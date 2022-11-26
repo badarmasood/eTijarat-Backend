@@ -19,7 +19,6 @@ const updateProfile = async (req, res, next) => {
     }
 
     try {
-        
         const buyer = await Buyer.findByIdAndUpdate(id, {
             $set: {
                 name: req.body.first_name,
