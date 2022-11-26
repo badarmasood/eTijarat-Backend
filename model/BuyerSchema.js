@@ -7,6 +7,9 @@ const address = mongoose.Schema({
     },
     address: {
         type: String
+    },
+    phone: {
+        type: Number
     }
 });
 

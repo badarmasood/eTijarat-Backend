@@ -49,6 +49,7 @@ const addAddress = async (req, res, next) => {
     const address = {
         name: req.body.name,
         address: req.body.address,
+        phone: req.body.phone,
     }
     const buyerID = req.user.id;
     try {
@@ -104,6 +105,7 @@ const updateAddress = async (req, res, next) => {
             $set: {
                 "address.$.name" : req.body.name,
                 "address.$.address" : req.body.address,
+                "address.$.phone" : req.body.phone,
             }
         }, { new: true })
 

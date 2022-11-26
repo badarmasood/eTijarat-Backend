@@ -24,7 +24,7 @@ mongoose.connect(DB_CONNECTION_STRING)
 .catch( err => console.log(err , 'DB Connection Failed'));
 
 app.use(authRoutes);
-app.use('/buyer', authMiddleWare , buyerRoutes);
+app.use('/buyer', authMiddleWare , buyerRoutes); 
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
 
