@@ -123,7 +123,7 @@ const getCards = async (req, res, next) => {
     }
 }
 
-const addOrUpdateCard = async (req, res, next) => {
+const addCard = async (req, res, next) => {
     const card = {
         name: req.body.name,
         number: req.body.card_no,
@@ -132,45 +132,45 @@ const addOrUpdateCard = async (req, res, next) => {
         expiryYear: req.body.cardYear,
     }
     const buyerID = req.user.id;
-
-    if(req.params.id){
-        try {
-            const buyer = await Buyer.updateOne({ _id: id, "card._id": req.params.id }, {
-                $set: {
-                    "card.$.name": req.body.name,
-                    "card.$.number": req.body.card_no,
-                    "card.$.cvc": req.body.cvc,
-                    "card.$.expiryMonth": req.body.exp,
-                    "card.$.expiryYear": req.body.cardYear,
+    try {
+        const buyer = await Buyer.findByIdAndUpdate(buyerID, {
+            $push: {
+                card: {
+                    $each: [card],
+                    $position: 0
                 }
-            }, { new: true })
-
-            res.status(201).json({ buyer, message: "Card Updated" })
-        }
-        catch (error) {
-            next({ status: 500, message: error.message })
-        }
+            },
+        }, { new: true })
+        res.status(201).json({ buyer, message: "Card Added" })
     }
-    else{
-        try {
-            const buyer = await Buyer.findByIdAndUpdate(buyerID, {
-                $push: {
-                    card: {
-                        $each: [card],
-                        $position: 0
-                    }
-                },
-            }, { new: true })
-            res.status(201).json({ buyer, message: "Card Added" })
-        }
-        catch (error) {
-            next({ status: 500, message: error.message })
-        }
+    catch (error) {
+        next({ status: 500, message: error.message })
     }
-
 }
 
+const updateCard = async (req, res, next) => {
+    const id = req.user.id;
+    if (!id) {
+        return next({ status: 404, message: 'Card Not Found' })
+    }
 
+    try {
+        const buyer = await Buyer.updateOne({ _id: id, "card._id": req.params.id }, {
+            $set: {
+                "card.$.name": req.body.name,
+                "card.$.number": req.body.card_no,
+                "card.$.cvc": req.body.cvc, 
+                "card.$.expiryMonth": req.body.exp, 
+                "card.$.expiryYear": req.body.cardYear, 
+            }
+        }, { new: true })
+
+        res.status(201).json({ buyer, message: "Card Updated" })
+    }
+    catch (error) {
+        next({ status: 500, message: error.message })
+    }
+}
 
 const deleteCard = async (req, res, next) => {
     const id = req.user.id;
@@ -195,5 +195,5 @@ const deleteCard = async (req, res, next) => {
 module.exports = {
     viewProfile, updateProfile,
     getAddresses, addAddress, updateAddress, deleteAddress,
-    getCards, addOrUpdateCard, deleteCard
+    getCards, addCard, updateCard, deleteCard
 }

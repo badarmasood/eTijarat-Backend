@@ -4,7 +4,7 @@ const buyerController=require('../controllers/buyer_controller');
 
 const router = express.Router();
 
-//Order Routes
+// Order Routes
 router.get('/orders', ordersController.getMyOrders);
 router.get('/order/:id' , ordersController.getorder);
 router.post('order/create', ordersController.create);
@@ -21,8 +21,8 @@ router.delete('/address/:id', buyerController.deleteAddress);
 
 // Card Routes
 router.get('/cards', buyerController.getCards);
-router.post('/card/:id?', buyerController.addOrUpdateCard);
-// router.put('/card/:id', buyerController.updateCard);
+router.post('/card', buyerController.addCard);
+router.put('/card/:id', buyerController.updateCard);
 router.delete('/card/:id', buyerController.deleteCard);
 
 module.exports = router;
