@@ -2,10 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { urlencoded } = require('express');
 const cors = require('cors');
+
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes')
 const orderRoutes = require('./routes/orderRoutes');
 const buyerRoutes = require('./routes/buyerRoutes');
+const vendorRoutes = require('./routes/vendorRoutes');
+
 const authMiddleWare = require('./middlewares/authMiddleware');
 require('dotenv').config();
 
@@ -25,6 +28,7 @@ mongoose.connect(DB_CONNECTION_STRING)
 
 app.use(authRoutes);
 app.use('/buyer', authMiddleWare , buyerRoutes); 
+app.use('/vendor', authMiddleWare , vendorRoutes); 
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
 

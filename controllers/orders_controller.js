@@ -1,4 +1,5 @@
 const Order = require("../model/OrderSchema");
+
 const getAllOrders = async (req, res, next) => {
   try {
     const orders = await Order.find({})
@@ -17,6 +18,7 @@ const getorder = async (req, res, next) => {
     next({ status: 404, message: error.message })
   }
 };
+
 const getMyOrders = async (req, res, next) => {
   const id = req.user.id;
   try {
@@ -27,9 +29,9 @@ const getMyOrders = async (req, res, next) => {
     next({ status: 404, message: error.message })
   }
 };
+
 const create = async (req, res, next) => {
   const data = {
-
     products: req.body.products,
     status: req.body.status,
     details: req.body.details,
@@ -74,5 +76,4 @@ const destroy = async (req, res, next) => {
   }
 };
 
-// module.exports = { getAllProducts, create, update, destroy, getMyBlogs, getBlog }
 module.exports = { getAllOrders, create, update, destroy, getorder, getMyOrders }

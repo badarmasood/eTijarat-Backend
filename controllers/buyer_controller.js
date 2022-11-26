@@ -69,30 +69,6 @@ const addAddress = async (req, res, next) => {
     }
 }
 
-const addCard = async (req, res, next) => {
-    const card = {
-        name: req.body.name,
-        number: req.body.number,
-        cvc: req.body.cvc,
-        expiryMonth: req.body.expiryMonth,
-        expiryYear: req.body.expiryYear,
-    }
-    const buyerID = req.user.id;
-    try {
-        const buyer = await Buyer.findByIdAndUpdate(buyerID, {
-            $push: {
-                card: {
-                    $each: [card],
-                    $position: 0
-                }
-            },
-        }, { new: true })
-        res.status(201).json({ buyer, message: "Card Added" })
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
-}
 
 const updateAddress = async (req, res, next) => {
     const id = req.user.id;
@@ -147,29 +123,54 @@ const getCards = async (req, res, next) => {
     }
 }
 
-const updateCard = async (req, res, next) => {
-    const id = req.user.id;
-    if (!id) {
-        return next({ status: 404, message: 'User Not Found' })
+const addOrUpdateCard = async (req, res, next) => {
+    const card = {
+        name: req.body.name,
+        number: req.body.card_no,
+        cvc: req.body.cvc,
+        expiryMonth: req.body.exp,
+        expiryYear: req.body.cardYear,
+    }
+    const buyerID = req.user.id;
+
+    if(req.params.id){
+        try {
+            const buyer = await Buyer.updateOne({ _id: id, "card._id": req.params.id }, {
+                $set: {
+                    "card.$.name": req.body.name,
+                    "card.$.number": req.body.card_no,
+                    "card.$.cvc": req.body.cvc,
+                    "card.$.expiryMonth": req.body.exp,
+                    "card.$.expiryYear": req.body.cardYear,
+                }
+            }, { new: true })
+
+            res.status(201).json({ buyer, message: "Card Updated" })
+        }
+        catch (error) {
+            next({ status: 500, message: error.message })
+        }
+    }
+    else{
+        try {
+            const buyer = await Buyer.findByIdAndUpdate(buyerID, {
+                $push: {
+                    card: {
+                        $each: [card],
+                        $position: 0
+                    }
+                },
+            }, { new: true })
+            res.status(201).json({ buyer, message: "Card Added" })
+        }
+        catch (error) {
+            next({ status: 500, message: error.message })
+        }
     }
 
-    try {
-        const buyer = await Buyer.updateOne({ _id: id, "card._id": req.params.id }, {
-            $set: {
-                "card.$.name": req.body.name,
-                "card.$.number": req.body.number,
-                "card.$.cvc": req.body.cvc, 
-                "card.$.expiryMonth": req.body.expiryMonth, 
-                "card.$.expiryYear": req.body.expiryYear, 
-            }
-        }, { new: true })
-
-        res.status(201).json({ buyer, message: "Address Updated" })
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
 }
+
+
 
 const deleteCard = async (req, res, next) => {
     const id = req.user.id;
@@ -194,5 +195,5 @@ const deleteCard = async (req, res, next) => {
 module.exports = {
     viewProfile, updateProfile,
     getAddresses, addAddress, updateAddress, deleteAddress,
-    getCards, addCard, updateCard, deleteCard
+    getCards, addOrUpdateCard, deleteCard
 }
