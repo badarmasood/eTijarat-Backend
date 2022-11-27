@@ -10,4 +10,7 @@ router.post('/create', authMiddleWare, productsController.create);
 router.put('/update/:id', authMiddleWare, productsController.update);
 router.delete('/destroy/:productID?', authMiddleWare, productsController.destroy);
 
+//Reviews Routes
+router.put('/review/add/:id', authMiddleWare, productsController.addReview);
+
 module.exports = router;

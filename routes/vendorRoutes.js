@@ -17,6 +17,7 @@ router.delete('/product/:productID?', authMiddleWare, productsController.destroy
 
 //Order Routes
 router.get('/orders', vendorController.myOrders);
+router.get('/order/:id', vendorController.viewOrder);
 router.put('/order/update/:id', ordersController.update);
 
 

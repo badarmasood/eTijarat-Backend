@@ -1,3 +1,4 @@
+const { parse } = require("dotenv");
 const Buyer = require("../model/BuyerSchema");
 const Order = require("../model/OrderSchema");
 const Product = require("../model/ProductSchema");
@@ -75,8 +76,22 @@ const myOrders = async (req, res, next) => {
     const vendorId = req.user.id;
     try {
         const orders = await Order.find({ "products.vendorId": vendorId });
-        orders.products = orders.products.filter( product => product.vendorId != vendorId );
+        orders.forEach((order) => {
+            order.products = order.products.filter((product) => product.vendorId === vendorId)
+        });
         res.json(orders);
+    }
+    catch (error) {
+        next({ status: 404, message: error.message })
+    }
+}
+
+const viewOrder = async (req, res, next) => {
+    const orderID = req.params.id;
+    try {
+        const order = await Order.findById(orderID);
+        order.products = order.products.filter((product) => product.vendorId === req.user.id)
+        res.json(order);
     }
     catch (error) {
         next({ status: 404, message: error.message })
@@ -130,5 +145,5 @@ const deleteCard = async (req, res, next) => {
 module.exports = {
     viewProfile, updateProfile,
     myProducts, addProduct,
-    myOrders, updateCard, deleteCard
+    myOrders, viewOrder, updateCard, deleteCard
 }

@@ -1,4 +1,14 @@
 const mongoose = require("mongoose");
+
+const review = mongoose.Schema({
+  customerName : {
+    type : String
+  },
+  comment : {
+    type : String
+  }
+});
+
 const productSchema = new mongoose.Schema({
   price: {
     type: Number,
@@ -18,20 +28,20 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  description: {
+  description : {
     type: String,
     required: true,
     trim: true,
   },
-  category: {
+  category : {
     type: String,
     required: true,
   },
-  sale_price: {
+  sale_price : {
     type: Number,
     required: true,
   },
-  rating: {
+  rating : {
     type: Number,
   },
   imgGroup: [
@@ -44,6 +54,7 @@ const productSchema = new mongoose.Schema({
     ref: "Vendor",
     required: true,
   },
+  reviews: [review],
 });
 
 module.exports = mongoose.model('Product', productSchema);

@@ -78,4 +78,21 @@ const destroy = async (req , res , next) => {
     }
 };
 
-module.exports = { getAllProducts, create,destroy,update,getProduct};
+const addReview = async (req, res, next) => {
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, {
+      $set: {
+        customerName: req.user.name,
+        comment: req.body.comment,
+      }
+    }, { new: true })
+    res.status(201).json({ product, message: "Review Added" })
+  }
+  catch (error) {
+    next({ status: 500, message: error.message })
+  }
+};
+
+
+module.exports = { getAllProducts, create, destroy, update, getProduct, addReview };
+ 
