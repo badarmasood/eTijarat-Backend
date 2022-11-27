@@ -79,12 +79,18 @@ const destroy = async (req , res , next) => {
 };
 
 const addReview = async (req, res, next) => {
+  const data = {
+    customerName: req.user.name,
+    comment: req.body.comment,
+  }
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, {
-      $set: {
-        customerName: req.user.name,
-        comment: req.body.comment,
-      }
+      $push: {
+        reviews: {
+          $each: [data],
+          $position: 0
+        }
+      },
     }, { new: true })
     res.status(201).json({ product, message: "Review Added" })
   }
