@@ -19,55 +19,6 @@ const getProduct = async (req, res, next) => {
     }
 };
 
-const mix = async (req, res, next) => {
-  const data = {
-    price: req.body.price,
-    title: req.body.title,
-    imgUrl: req.body.imgUrl,
-    stock: req.body.stock,
-    description: req.body.description,
-    category: req.body.category,
-    sale_price: req.body.sale_price,
-    rating: req.body.rating,
-    imgGroup: req.body.imgUrl,
-    vendorId: req.user.id,
-  };
-  if(!req.params.id){
-    try {
-      const product = await Product.create(data);
-      res.status(201).json({ product, message: "Product Created Successfully" });
-    } catch (error) {
-      next({ status: 500, message: error.message });
-    }
-  }
-  else{
-    const id = req.params.id;
-    if (!id) {
-      return next({ status: 404, message: 'ID Is Missing' })
-    }
-    try {
-      const product = await Product.findByIdAndUpdate(id, {
-        $set: {
-          price: req.body.price,
-          title: req.body.title,
-          imgUrl: req.body.imgUrl,
-          stock: req.body.stock,
-          description: req.body.description,
-          category: req.body.category,
-          discount: req.body.discount,
-        }
-      }, { new: true })
-
-      res.status(201).json({ product, message: "Products Record Updated" })
-    }
-    catch (error) {
-      next({ status: 500, message: error.message })
-    }
-  }
-
-
-};
-
 const create = async (req, res, next) => {
   const data = {
     price: req.body.price,
@@ -148,5 +99,5 @@ const addReview = async (req, res, next) => {
 };
 
 
-module.exports = { getAllProducts, create, destroy, update, getProduct, addReview, mix };
+module.exports = { getAllProducts, create, destroy, update, getProduct, addReview };
  

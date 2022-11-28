@@ -11,9 +11,8 @@ router.put('/profile/update', vendorController.updateProfile);
 
 //Product Routes
 router.get('/products', vendorController.myProducts);
-router.post('/product:id?', authMiddleWare, productsController.mix);
-// router.post('/product', authMiddleWare, productsController.create);
-// router.put('/product/:id', authMiddleWare, productsController.update);
+router.post('/product', authMiddleWare, productsController.create);
+router.put('/product/:id', authMiddleWare, productsController.update);
 router.delete('/product/:productID?', authMiddleWare, productsController.destroy);
 
 //Order Routes
