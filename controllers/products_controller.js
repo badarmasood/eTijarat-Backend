@@ -12,7 +12,7 @@ const getAllProducts = async (req, res, next) => {
 const getProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id)
-        res.json({ product });
+        res.json(product);
     }
     catch (error) {
         next({ status: 404, message: error.message })
