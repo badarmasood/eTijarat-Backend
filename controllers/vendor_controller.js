@@ -47,6 +47,16 @@ const myProducts = async (req, res, next) => {
     }
 };
 
+const getProduct = async (req, res, next) => {
+    try {
+        const products = await Product.findById(req.params.id);
+        res.json(products);
+    }
+    catch (error) {
+        next({ status: 404, message: error.message })
+    }
+};
+
 const addProduct = async (req, res, next) => {
     const address = {
         name: req.body.name,
