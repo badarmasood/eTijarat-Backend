@@ -7,7 +7,7 @@ const router = express.Router();
 // Order Routes
 router.get('/orders', ordersController.getMyOrders);
 router.get('/order/:id' , ordersController.getorder);
-router.post('order/create', ordersController.create);
+router.post('/order/create', ordersController.create);
 
 // Profile Routes
 router.get('/profile', buyerController.viewProfile);
