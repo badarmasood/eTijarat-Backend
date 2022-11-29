@@ -76,4 +76,22 @@ const destroy = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllOrders, create, update, destroy, getorder, getMyOrders }
+const removeProductFromOrder = async (req, res, next) => {
+  const orderID = req.params.id;
+  try {
+    const order = await Order.updateOne({ _id: orderID }, {
+      $pull: {
+        products: { _id: req.body.productId }
+      }
+    }, { new: true })
+
+    res.json({ message: 'Product Removed from Order' , order });
+  }
+  catch (error) {
+    next({ status: 500, message: error.message })
+  }
+};
+
+
+
+module.exports = { getAllOrders, create, update, destroy, getorder, getMyOrders, removeProductFromOrder }

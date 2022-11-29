@@ -19,5 +19,6 @@ router.delete('/product/:productID?', productsController.destroy);
 router.get('/orders', vendorController.myOrders);
 router.get('/order/:id', vendorController.viewOrder);
 router.put('/order/update/:id', ordersController.update);
+router.delete('/order/product/delete/:id', ordersController.removeProductFromOrder);
 
 module.exports = router;
