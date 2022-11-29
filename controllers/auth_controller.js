@@ -1,5 +1,6 @@
 const Vendor = require("../model/VendorSchema");
 const Buyer = require("../model/BuyerSchema");
+const Admin = require("../model/AdminSchema");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -50,6 +51,7 @@ const loginVendor = async (req, res, next) => {
     next({ status: 500, message: error.message });
   }
 };
+
 const registerBuyer = async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -101,4 +103,38 @@ const loginBuyer = async (req, res, next) => {
   }
 };
 
-module.exports = { registerVendor, loginVendor, registerBuyer, loginBuyer };
+const loginAdmin = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await Admin.findOne({ email });
+    if (!user) {
+      return next({
+        status: 404,
+        message: "This Email Doesn't Exist",
+      });
+    }
+    const dbPassword = user.password;
+    const isSamePassword = await bcryptjs.compare(password, dbPassword);
+    if (isSamePassword) {
+      const JsonPayLoad = { id: user._id, name: user.name, email: user.email };
+      const token = jwt.sign(JsonPayLoad, process.env.SECRET_KEY, {
+        expiresIn: "3d",
+      });
+      res.json({
+        token,
+        AdminId: user._id,
+        message: "Logged In Successfully",
+      });
+    } else {
+      next({
+        status: 404,
+        message: "Password is Incorrect",
+      });
+    }
+  } catch (error) {
+    next({ status: 500, message: error.message });
+  }
+};
+
+module.exports = { registerVendor, loginVendor, registerBuyer, loginBuyer, loginAdmin };

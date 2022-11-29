@@ -2,8 +2,8 @@ const Product = require("../model/ProductSchema");
 
 const getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find({})
-    res.json({ products });
+    const products = await Product.find({}).populate('vendorId')
+    res.json(products);
   } catch (error) {
     next({ status: 404, message: error.message });
   }
