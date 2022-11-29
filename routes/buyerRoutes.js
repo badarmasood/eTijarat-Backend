@@ -1,6 +1,8 @@
 const express = require('express');
+
 const ordersController=require('../controllers/orders_controller');
 const buyerController=require('../controllers/buyer_controller');
+const productsController = require('../controllers/products_controller');
 
 const router = express.Router();
 
@@ -24,5 +26,8 @@ router.get('/cards', buyerController.getCards);
 router.post('/card', buyerController.addCard);
 router.put('/card/:id', buyerController.updateCard);
 router.delete('/card/:id', buyerController.deleteCard);
+
+// Review Routes
+router.put('/review/add/:id', productsController.addReview);
 
 module.exports = router;

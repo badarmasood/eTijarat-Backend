@@ -69,7 +69,6 @@ const addAddress = async (req, res, next) => {
     }
 }
 
-
 const updateAddress = async (req, res, next) => {
     const id = req.user.id;
     if (!id) {

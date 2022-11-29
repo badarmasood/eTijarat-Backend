@@ -42,7 +42,7 @@ const myProducts = async (req, res, next) => {
         const products = await Product.find({vendorId : req.user.id});
         res.json(products);
     }
-    catch (error) {
+    catch (error) {  
         next({ status: 404, message: error.message })
     }
 };
@@ -81,7 +81,6 @@ const addProduct = async (req, res, next) => {
     }
 }
 
-
 const myOrders = async (req, res, next) => {
     const vendorId = req.user.id;
     try {
@@ -108,52 +107,8 @@ const viewOrder = async (req, res, next) => {
     }
 }
 
-const updateCard = async (req, res, next) => {
-    const id = req.user.id;
-    if (!id) {
-        return next({ status: 404, message: 'User Not Found' })
-    }
-
-    try {
-        const buyer = await Buyer.updateOne({ _id: id, "card._id": req.params.id }, {
-            $set: {
-                "card.$.name": req.body.name,
-                "card.$.number": req.body.number,
-                "card.$.cvc": req.body.cvc,
-                "card.$.expiryMonth": req.body.expiryMonth,
-                "card.$.expiryYear": req.body.expiryYear,
-            }
-        }, { new: true })
-
-        res.status(201).json({ buyer, message: "Address Updated" })
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
-}
-
-const deleteCard = async (req, res, next) => {
-    const id = req.user.id;
-    if (!id) {
-        return next({ status: 404, message: 'User Not Found' })
-    }
-
-    try {
-        const buyer = await Buyer.updateOne({ _id: id }, {
-            $pull: {
-                card: { _id: req.params.id }
-            }
-        }, { new: true })
-
-        res.status(201).json({ buyer, message: "Card Deleted Successfully" })
-    }
-    catch (error) {
-        next({ status: 500, message: error.message })
-    }
-}
-
 module.exports = {
     viewProfile, updateProfile,
-    myProducts, addProduct,
-    myOrders, viewOrder, updateCard, deleteCard
+    myProducts, addProduct, getProduct,
+    myOrders, viewOrder,
 }
