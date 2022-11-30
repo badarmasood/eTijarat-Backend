@@ -12,5 +12,9 @@ router.get('/order/:id', ordersController.getorder);
 router.get('/buyers', adminController.getAllBuyers);
 router.get('/vendors', adminController.getAllVendors);
 
+router.get('/all', productsController.getAllProducts);
+router.get('/:id', productsController.getProduct);
+
+
 
 module.exports = router;
