@@ -10,16 +10,22 @@ const review = mongoose.Schema({
 });
 
 const productSchema = new mongoose.Schema({
-  
-  price: {
-    type: Number,
-    required: true,
-  },
 
   title: {
     type: String,
     required: true,
     trim: true,
+  },
+
+  price: {
+    type: Number,
+    required: true,
+  },
+
+  qty: {
+    type: Number,
+    required: true,
+    default : 1,
   },
 
   imgUrl: {
@@ -58,13 +64,14 @@ const productSchema = new mongoose.Schema({
     },
   ],
 
+  reviews: [review],
+
   vendorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Vendor",
     required: true,
   },
 
-  reviews: [review],
 
 });
 
