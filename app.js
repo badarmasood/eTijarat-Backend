@@ -34,7 +34,7 @@ app.use(authRoutes);
 app.use('/products',productRoutes);
 app.use('/buyer', authMiddleWare , buyerRoutes); 
 app.use('/vendor', authMiddleWare , vendorRoutes); 
-app.use('/admin', authMiddleWare ,adminRoutes);
+app.use('/admin', adminRoutes);
 
 // Error Handler Middleware
 app.use( (err , req , res , next) => {
