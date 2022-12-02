@@ -22,6 +22,7 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
+
 // DB Connection and Server
 mongoose.connect(DB_CONNECTION_STRING)
 .then(() => {
