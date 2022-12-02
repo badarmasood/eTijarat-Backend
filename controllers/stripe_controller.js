@@ -24,8 +24,6 @@ const createPayment = async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
       line_items,
-      payment_method_types: ["card"],
-      billing_address_collection: "required",
       customer_email : req.user.email,
       mode: "payment",
       success_url: "http://localhost:3000/order-confirmation",
