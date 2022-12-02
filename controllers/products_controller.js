@@ -7,11 +7,11 @@ const getAllProducts = async (req, res, next) => {
   } catch (error) {
     next({ status: 404, message: error.message });
   }
-};
+};  
 
 const getProduct = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id)
+        const product = await Product.find({ id : req.params.id})
         res.json(product);
     }
     catch (error) {

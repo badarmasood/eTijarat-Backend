@@ -15,6 +15,7 @@ const productRoutes = require('./routes/productRoutes')
 const buyerRoutes = require('./routes/buyerRoutes');
 const vendorRoutes = require('./routes/vendorRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 require('dotenv').config();
 
@@ -36,6 +37,7 @@ app.use('/products',productRoutes);
 app.use('/buyer', authMiddleWare , buyerRoutes); 
 app.use('/vendor', authMiddleWare , vendorRoutes); 
 app.use('/admin', adminRoutes);
+app.use('/chat', chatRoutes);
 
 // Error Handler Middleware
 app.use( (err , req , res , next) => {

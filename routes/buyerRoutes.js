@@ -4,6 +4,7 @@ const ordersController = require("../controllers/orders_controller");
 const buyerController = require("../controllers/buyer_controller");
 const productsController = require("../controllers/products_controller");
 const stripeController = require("../controllers/stripe_controller");
+const chatController = require("../controllers/chat_controller");
 
 const router = express.Router();
 
