@@ -20,7 +20,4 @@ const searchByVendor = async (req, res, next) => {
     }
 };
 
-
-
-
 module.exports = { searchByCategory, searchByVendor }

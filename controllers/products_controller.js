@@ -11,7 +11,7 @@ const getAllProducts = async (req, res, next) => {
 
 const getProduct = async (req, res, next) => {
     try {
-        const product = await Product.find({ id : req.params.id});
+        const product = await Product.find({ id : req.params.id}).populate('vendorId');
         console.log(product);
         res.json(product);
     }

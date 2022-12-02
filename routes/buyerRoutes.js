@@ -4,7 +4,6 @@ const ordersController = require("../controllers/orders_controller");
 const buyerController = require("../controllers/buyer_controller");
 const productsController = require("../controllers/products_controller");
 const stripeController = require("../controllers/stripe_controller");
-const chatController = require("../controllers/chat_controller");
 
 const router = express.Router();
 
@@ -13,7 +12,7 @@ router.get("/orders", ordersController.getMyOrders);
 router.get("/order/:id", ordersController.getorder);
 router.post("/order/create", ordersController.create);
 
-//Payment Routes
+// Payment Routes
 router.post('/create-checkout-session', stripeController.createPayment);
 
 // Profile Routes
