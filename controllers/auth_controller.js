@@ -123,7 +123,7 @@ const loginAdmin = async (req, res, next) => {
       });
       res.json({
         token,
-        AdminId: user._id,
+        adminId: user._id,
         message: "Logged In Successfully",
       });
     } else {

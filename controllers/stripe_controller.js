@@ -1,5 +1,4 @@
-const express = require("express");
-const app = express();
+
 require("dotenv").config();
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
@@ -7,10 +6,8 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const stripe = require("stripe")(STRIPE_SECRET_KEY);
 
 const createPayment = async (req, res) => {
-  console.log("Orders", req.body);
 
   const line_items = req.body.products.map((item) => {
-    console.log("item", item);
     return {
       price_data: {
         currency: "usd",
@@ -24,20 +21,16 @@ const createPayment = async (req, res) => {
     };
   });
 
-  const card = {
-    exp_month: "8",
-  };
   try {
     const session = await stripe.checkout.sessions.create({
       line_items,
       payment_method_types: ["card"],
       billing_address_collection: "required",
-      customer:req.user.id,
+      customer_email : req.user.email,
       mode: "payment",
       success_url: "http://localhost:3000/order-confirmation",
       cancel_url: "http://localhost:3000/checkout-alternative",
     });
-    console.log("session", session);
     res.send({ url: session.url });
   } catch (e) {
     console.log(e.message);
