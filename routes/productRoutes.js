@@ -9,7 +9,7 @@ router.get("/:id", productsController.getProduct);
 
 router.get("/vendor/:id", searchController.getVendorProducts);
 router.get("/search/:category", searchController.searchByCategory);
-router.get("/vendor/:id", searchController.searchByVendor);
+router.get("/search/vendor/:id", searchController.searchByVendor);
 
 // router.post("/update/all", productsController.updateAll);
 module.exports = router;
