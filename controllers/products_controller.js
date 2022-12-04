@@ -14,7 +14,6 @@ const getProduct = async (req, res, next) => {
     const product = await Product.findOne({ id: req.params.id }).populate(
       "vendorId"
     );
-    console.log(product);
     res.json(product);
   } catch (error) {
     next({ status: 404, message: error.message });
@@ -23,7 +22,6 @@ const getProduct = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   let product;
-  console.log("req", req.body);
   const data = {
     price: req.body.price,
     title: req.body.title,

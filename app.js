@@ -17,7 +17,7 @@ const buyerRoutes = require("./routes/buyerRoutes");
 const vendorRoutes = require("./routes/vendorRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const chatRoutes = require("./routes/chatRoutes");
-const seacrhRoutes = require("./routes/searchRoutes");
+const searchRoutes = require("./routes/searchRoutes");
 
 require("dotenv").config();
 
@@ -43,7 +43,7 @@ app.use("/buyer", authMiddleWare, buyerRoutes);
 app.use("/vendor", authMiddleWare, vendorRoutes);
 app.use("/admin", adminRoutes);
 app.use("/chat", chatRoutes);
-app.use(seacrhRoutes);
+app.use(searchRoutes);
 
 // Error Handler Middleware
 app.use((err, req, res, next) => {

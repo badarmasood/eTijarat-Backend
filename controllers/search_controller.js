@@ -42,8 +42,8 @@ const search_controller = {
 
   getVendor : async function (req, res, next) {
     try {
-      const vendors = await Vendor.findById(req.params.id);
-      res.status(201).json(vendors);
+      const vendor = await Vendor.findById(req.params.id);
+      res.status(201).json(vendor);
     } catch (error) {
       next({ status: 500, message: error.message });
     }
