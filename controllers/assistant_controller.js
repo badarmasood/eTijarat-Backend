@@ -21,6 +21,36 @@ const assistant_controller = {
         }
     },
 
+    loginAssistant : async function (req, res, next){
+        const { email, password } = req.body;
+        try {
+            const user = await Assistant.findOne({ email });
+            if (!user) {
+                return next({
+                    status: 404,
+                    message: "This Email Doesn't Exist",
+                });
+            }
+            const dbPassword = user.password;
+            const isSamePassword = await bcryptjs.compare(password, dbPassword);
+            if (isSamePassword) {
+                const JsonPayLoad = { id: user._id, name: user.name, email: user.email };
+                const token = jwt.sign(JsonPayLoad, process.env.SECRET_KEY, {
+                    expiresIn: "3d",
+                });
+                res.json({
+                    token,
+                    assistantId: user._id,
+                    message: "Logged In Successfully",
+                });
+            } else {
+                next({ status: 404, message: "Password is Incorrect" });
+            }
+        } catch (error) {
+            next({ status: 500, message: error.message });
+        }
+    },
+
     getAssistants: async function (req, res, next) {
         try {
             const assistant = await Assistant.find({ vendorId: req.user.id});
