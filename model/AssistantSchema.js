@@ -11,7 +11,12 @@ const AssistantSchema = mongoose.Schema({
     password: String,
     permission: {
         type : Object,
-    }
+    },
+    vedorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vendor",
+        required: true,
+    },
 });
 
 module.exports = mongoose.model('Assistant', AssistantSchema);

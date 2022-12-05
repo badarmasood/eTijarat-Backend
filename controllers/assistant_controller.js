@@ -1,12 +1,7 @@
-const Buyer = require("../model/BuyerSchema");
-const Order = require("../model/OrderSchema");
-const Product = require("../model/ProductSchema");
-const Vendor = require("../model/VendorSchema");
 const Assistant = require("../model/AssistantSchema");
-const Admin = require("../model/AdminSchema");
 
 const assistant_controller = {
-    
+
     createAssistant :  async function(req, res, next){
         const { name, email, password , permission } = req.body;
 
@@ -17,7 +12,7 @@ const assistant_controller = {
         }
         const encPassword = bcryptjs.hashSync(password, 15);
         try {
-            const user = await Assistant.create({ name, email, permission, password: encPassword });
+            const user = await Assistant.create({ name, email, permission, vendorId : req.user.id, password: encPassword });
             res.status(201).json({ user, message: "Assistant Registered Successfully" });
         } catch (error) {
             next({ status: 500, message: error.message });
@@ -26,7 +21,7 @@ const assistant_controller = {
 
     getAssistants: async function (req, res, next) {
         try {
-            const assistant = await Assistant.find({ vendorId: req.params.vendorId });
+            const assistant = await Assistant.find({ vendorId: req.user.id});
             res.json(assistant);
         }
         catch (error) {
