@@ -9,7 +9,9 @@ const AssistantSchema = mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    permission: Number
+    permission: {
+        type : Object,
+    }
 });
 
 module.exports = mongoose.model('Assistant', AssistantSchema);

@@ -6,6 +6,7 @@ const Assistant = require("../model/AssistantSchema");
 const Admin = require("../model/AdminSchema");
 
 const assistant_controller = {
+    
     createAssistant :  async function(req, res, next){
         const { name, email, password , permission } = req.body;
 
