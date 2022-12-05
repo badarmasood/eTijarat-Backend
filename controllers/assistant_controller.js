@@ -25,7 +25,7 @@ const assistant_controller = {
 
     getAssistants: async function (req, res, next) {
         try {
-            const assistant = await Assistant.find({});
+            const assistant = await Assistant.find({ vendorId: req.params.vendorId });
             res.json(assistant);
         }
         catch (error) {

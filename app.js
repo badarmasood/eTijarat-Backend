@@ -18,6 +18,7 @@ const vendorRoutes = require("./routes/vendorRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const searchRoutes = require("./routes/searchRoutes");
+const assistantRoutes = require("./routes/assistantRoutes");
 
 require("dotenv").config();
 
@@ -44,6 +45,7 @@ app.use("/vendor", authMiddleWare, vendorRoutes);
 app.use("/admin", adminRoutes);
 app.use("/chat", chatRoutes);
 app.use(searchRoutes);
+app.use(assistant);
 
 // Error Handler Middleware
 app.use((err, req, res, next) => {
