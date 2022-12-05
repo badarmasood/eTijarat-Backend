@@ -23,9 +23,9 @@ router.get('/order/:id', vendorController.viewOrder);
 router.put('/order/update/:id', ordersController.update);
 router.delete('/order/product/delete/:id', ordersController.removeProductFromOrder);
 
-
 // Assistant Routes
-router.get("/assistant/create", assistantController.createAssistant);
 router.get("/assistants", assistantController.getAssistants);
+router.post("/assistant/create", assistantController.createAssistant);
+router.post("/assistant/:id", assistantController.deleteAssistant);
 
 module.exports = router;

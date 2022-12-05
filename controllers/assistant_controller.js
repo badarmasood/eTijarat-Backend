@@ -1,4 +1,6 @@
 const Assistant = require("../model/AssistantSchema");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const assistant_controller = {
 
@@ -22,6 +24,16 @@ const assistant_controller = {
     getAssistants: async function (req, res, next) {
         try {
             const assistant = await Assistant.find({ vendorId: req.user.id});
+            res.json(assistant);
+        }
+        catch (error) {
+            next({ status: 404, message: error.message })
+        }
+    },
+
+    deleteAssistant: async function (req, res, next) {
+        try {
+            const assistant = await Assistant.findByIdAndDelete(req.params.id);
             res.json(assistant);
         }
         catch (error) {

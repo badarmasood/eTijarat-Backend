@@ -12,7 +12,7 @@ const AssistantSchema = mongoose.Schema({
     permission: {
         type : Object,
     },
-    vedorId: {
+    vendorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Vendor",
         required: true,
