@@ -5,6 +5,7 @@ const searchController = require("../controllers/search_controller");
 const router = express.Router();
 // /products
 router.get("/all", productsController.getAllProducts);
+router.get("/random", productsController.getRandomProducts);
 router.get("/:id", productsController.getProduct);
 
 router.get("/vendor/:id", searchController.getVendorProducts);

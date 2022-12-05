@@ -8,12 +8,29 @@ const getAllProducts = async (req, res, next) => {
     next({ status: 404, message: error.message });
   }
 };
+const getRandomProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find({}).populate("vendorId");
+
+    var getMeRandomElements = function (sourceArray, neededElements) {
+      var result = [];
+      for (var i = 0; i < neededElements; i++) {
+        result.push(
+          sourceArray[Math.floor(Math.random() * sourceArray.length)]
+        );
+      }
+      return result;
+    };
+
+    res.json(getMeRandomElements(products, 12));
+  } catch (error) {
+    next({ status: 404, message: error.message });
+  }
+};
 
 const getProduct = async (req, res, next) => {
   try {
-    const product = await Product.findOne({ id: req.params.id }).populate(
-      "vendorId"
-    );
+    const product = await Product.findById(req.params.id).populate("vendorId");
     res.json(product);
   } catch (error) {
     next({ status: 404, message: error.message });
@@ -160,4 +177,5 @@ module.exports = {
   update,
   getProduct,
   addReview,
+  getRandomProducts,
 };
