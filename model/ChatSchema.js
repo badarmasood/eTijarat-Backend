@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ChatSchema = mongoose.Schema({
+const ChatSchema = mongoose.Schema({  
     buyerId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Buyer",
@@ -8,6 +8,7 @@ const ChatSchema = mongoose.Schema({
     },
     message : {
         type : String,
+        default: 'Hello',
     },
     vendorId: {
         type: mongoose.Schema.Types.ObjectId,

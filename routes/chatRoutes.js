@@ -4,7 +4,11 @@ const chatController = require("../controllers/chat_controller");
 
 const router = express.Router();
 
-router.get("/messages", chatController.getMessage);
-router.post("/messages", chatController.sendMessage);
+router.post("/messages", chatController.getMessage);
+router.post("/message/send", chatController.sendMessage);
+router.post("/create", chatController.initiateChat);
+
+router.post("/buyer/chats", chatController.getBuyerChats);
+// router.post("/vendor/chats", chatController.getVendorChats);
 
 module.exports = router;
