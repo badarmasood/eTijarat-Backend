@@ -20,7 +20,7 @@ const registerVendor = async (req, res, next) => {
     next({ status: 500, message: error.message });
   }
 };
-
+  
 const loginVendor = async (req, res, next) => {
   const { email, password } = req.body;
 

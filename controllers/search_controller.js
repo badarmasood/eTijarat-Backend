@@ -13,6 +13,15 @@ const search_controller = {
     }
   },
 
+  searchByName : async function (req, res, next) {
+    try {
+      const products = await Product.find({ name: req.params.name });
+      res.json(products);
+    } catch (error) {
+      next({ status: 404, message: error.message });
+    }
+  },
+
   searchByVendor : async function (req, res, next) {
     try {
       const vendors = await Vendor.find({ name: req.params.vendorName });

@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Routes
 router.get("/vendors", searchController.getAllVendors);
+router.get("/vendor/:id", searchController.searchByName);
 router.get("/vendor/:id", searchController.getVendor);
 
 
