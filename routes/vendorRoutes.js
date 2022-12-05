@@ -26,6 +26,7 @@ router.delete('/order/product/delete/:id', ordersController.removeProductFromOrd
 // Assistant Routes
 router.get("/assistants", assistantController.getAssistants);
 router.post("/assistant/create", assistantController.createAssistant);
+router.post("/assistant/login", assistantController.loginAssistant);
 router.post("/assistant/:id", assistantController.deleteAssistant);
 
 module.exports = router;
