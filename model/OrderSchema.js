@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-
   buyerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Buyer",
     required: true,
   },
 
-  status:{
+  status: {
     type: String,
+    default: "pending",
   },
 
   products: [
@@ -19,14 +19,13 @@ const orderSchema = new mongoose.Schema({
   ],
 
   details: {
-  type: Object,
+    type: Object,
   },
 
   createdAt: {
     type: Date,
-    default: Date.now
-  }
-
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);
