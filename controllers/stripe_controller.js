@@ -18,8 +18,6 @@ const createPayment = async (req, res) => {
     }
   });
 
-  try
-
   const line_items = req.body.products.map((item) => {
     let text = item.imgUrl;
     const images = [];
