@@ -20,7 +20,7 @@ const registerVendor = async (req, res, next) => {
     next({ status: 500, message: error.message });
   }
 };
-  
+
 const loginVendor = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -29,7 +29,7 @@ const loginVendor = async (req, res, next) => {
     if (!user) {
       return next({
         status: 404,
-        message: "This Email Doesn't Exist",
+        message: "This vendor Email Doesn't Exist",
       });
     }
     const dbPassword = user.password;
@@ -77,7 +77,7 @@ const loginBuyer = async (req, res, next) => {
     if (!user) {
       return next({
         status: 404,
-        message: "This Email Doesn't Exist",
+        message: "This buyer Email Doesn't Exist",
       });
     }
     const dbPassword = user.password;
@@ -137,4 +137,10 @@ const loginAdmin = async (req, res, next) => {
   }
 };
 
-module.exports = { registerVendor, loginVendor, registerBuyer, loginBuyer, loginAdmin };
+module.exports = {
+  registerVendor,
+  loginVendor,
+  registerBuyer,
+  loginBuyer,
+  loginAdmin,
+};

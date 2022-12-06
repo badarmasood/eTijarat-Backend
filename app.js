@@ -18,6 +18,7 @@ const vendorRoutes = require("./routes/vendorRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const searchRoutes = require("./routes/searchRoutes");
+const assistantRoutes = require("./routes/assistantRoutes");
 
 require("dotenv").config();
 
@@ -35,14 +36,13 @@ mongoose
   })
   .catch((err) => console.log(err, "DB Connection Failed"));
 
-
-  
 app.use(authRoutes);
 app.use("/products", productRoutes);
 app.use("/buyer", authMiddleWare, buyerRoutes);
 app.use("/vendor", authMiddleWare, vendorRoutes);
 app.use("/admin", adminRoutes);
 app.use("/chat", chatRoutes);
+app.use(assistantRoutes);
 app.use(searchRoutes);
 
 // Error Handler Middleware
