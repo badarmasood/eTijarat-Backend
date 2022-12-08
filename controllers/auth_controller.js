@@ -10,7 +10,7 @@ const registerVendor = async (req, res, next) => {
     email,
     password,
     address,
-    vendordocument,
+    documents,
     addressVerification,
   } = req.body;
 

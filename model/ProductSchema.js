@@ -1,22 +1,71 @@
 const mongoose = require("mongoose");
 
 const review = mongoose.Schema({
-  customerName : {
-    type : String
+  customerName: {
+    type: String,
   },
-  comment : {
-    type : String
+  comment: {
+    type: String,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
+const variation = mongoose.Schema({
+  title: {
+    type: String,
+    trim: true,
+  },
 
+  price: {
+    type: Number,
+  },
+
+  qty: {
+    type: Number,
+    default: 1,
+  },
+
+  imgUrl: {
+    type: String,
+  },
+
+  stock: {
+    type: Number,
+    default: 10,
+  },
+
+  description: {
+    type: String,
+    trim: true,
+    default:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+
+  category: {
+    type: String,
+  },
+
+  sale_price: {
+    type: Number,
+    default: 0,
+  },
+
+  rating: {
+    type: Number,
+    default: 1,
+  },
+
+  vendorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Vendor",
+    required: true,
+  },
+});
 
 const productSchema = new mongoose.Schema({
-
   title: {
     type: String,
     required: true,
@@ -31,7 +80,7 @@ const productSchema = new mongoose.Schema({
   qty: {
     type: Number,
     required: true,
-    default : 1,
+    default: 1,
   },
 
   imgUrl: {
@@ -42,37 +91,34 @@ const productSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: true,
-    default : 10,
+    default: 10,
   },
 
-  description : {
+  description: {
     type: String,
     required: true,
     trim: true,
-    default: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    default:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
 
-  category : {
+  category: {
     type: String,
     required: true,
   },
 
-  sale_price : {
+  sale_price: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
 
-  rating : {
+  rating: {
     type: Number,
-    default : 1
+    default: 1,
   },
 
-  variations: [
-    {
-      type: Object,
-    },
-  ],
+  variations: [variation],
 
   imgGroup: [
     {
@@ -87,21 +133,6 @@ const productSchema = new mongoose.Schema({
     ref: "Vendor",
     required: true,
   },
-
 });
 
-module.exports = mongoose.model('Product', productSchema);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = mongoose.model("Product", productSchema);

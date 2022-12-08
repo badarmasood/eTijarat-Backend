@@ -49,14 +49,30 @@ const create = async (req, res, next) => {
     sale_price: req.body.sale_price,
     rating: req.body.rating,
     imgGroup: req.body.imgUrl,
-    variations : req.body.variations,
     vendorId: req.user.id,
     id: "123",
   };
   try {
     product = await Product.create(data);
+    console.log("product variation", product);
   } catch (error) {
     next({ status: 500, message: error.message });
+  }
+
+  if (req.body.variations.length > 0) {
+    try {
+      const prod = await Product.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            variations: req.body.variations,
+          },
+        },
+        { new: true }
+      );
+    } catch (error) {
+      next({ status: 500, message: error.message });
+    }
   }
   try {
     const temp = product._id;
