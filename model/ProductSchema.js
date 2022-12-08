@@ -13,6 +13,8 @@ const review = mongoose.Schema({
   }
 });
 
+
+
 const productSchema = new mongoose.Schema({
 
   title: {
@@ -65,6 +67,12 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default : 1
   },
+
+  variations: [
+    {
+      type: Object,
+    },
+  ],
 
   imgGroup: [
     {

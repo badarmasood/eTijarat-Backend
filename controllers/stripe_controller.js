@@ -38,6 +38,7 @@ const createPayment = async (req, res) => {
       quantity: item.qty,
     };
   });
+  
   const data = {
     products: req.body.products,
     status: req.body.status,

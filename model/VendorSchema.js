@@ -11,7 +11,11 @@ const VendorSchema = mongoose.Schema({
         type : String, 
         required: false,
     },
+    address : {
+        type : String,
+    },
     password: String,
+
 });
 
 module.exports = mongoose.model('Vendor', VendorSchema);

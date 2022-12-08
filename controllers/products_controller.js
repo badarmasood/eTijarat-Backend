@@ -49,6 +49,7 @@ const create = async (req, res, next) => {
     sale_price: req.body.sale_price,
     rating: req.body.rating,
     imgGroup: req.body.imgUrl,
+    variations : req.body.variations,
     vendorId: req.user.id,
     id: "123",
   };
