@@ -14,6 +14,9 @@ const VendorSchema = mongoose.Schema({
     address : {
         type : String,
     },
+    addressVerification :{
+        type : String,
+    },
     password: String,
 
 });

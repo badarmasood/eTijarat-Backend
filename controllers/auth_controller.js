@@ -5,7 +5,14 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const registerVendor = async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const {
+    name,
+    email,
+    password,
+    address,
+    vendordocument,
+    addressVerification,
+  } = req.body;
 
   let emailExists = await Vendor.findOne({ email });
 
@@ -14,7 +21,14 @@ const registerVendor = async (req, res, next) => {
   }
   const encPassword = bcryptjs.hashSync(password, 15);
   try {
-    const user = await Vendor.create({ name, email, password: encPassword });
+    const user = await Vendor.create({
+      name,
+      email,
+      password: encPassword,
+      address,
+      vendordocument,
+      addressVerification,
+    });
     res.status(201).json({ user, message: "Vendor Registered Successfully" });
   } catch (error) {
     next({ status: 500, message: error.message });
