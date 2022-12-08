@@ -37,6 +37,15 @@ const getProduct = async (req, res, next) => {
   }
 };
 
+const getProductVariation = async (req, res, next) => {
+  try {
+    const product = await Product.findOne({ variations: { $elemMatch: { _id: req.params.id} } }).populate("vendorId");
+    res.json(product);
+  } catch (error) {
+    next({ status: 404, message: error.message });
+  }
+};
+
 const create = async (req, res, next) => {
   let product;
   const data = {
@@ -181,4 +190,5 @@ module.exports = {
   getProduct,
   addReview,
   getRandomProducts,
+  getProductVariation
 };

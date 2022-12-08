@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/all", productsController.getAllProducts);
 router.get("/random", productsController.getRandomProducts);
 router.get("/:id", productsController.getProduct);
+router.get("/variation/:id", productsController.getProductVariation);
 
 router.get("/vendor/:id", searchController.getVendorProducts);
 router.get("/search/:category", searchController.searchByCategory);
