@@ -28,7 +28,11 @@ const coupon_controller = {
         const {cartList} = req.body;
         try {
             const coupon = await Coupon.findOne({ code: req.param.code });
-            res.json({ coupon, message: "Coupon Matched" });
+            if(coupon){
+                res.json({ coupon, message: "Coupon Matched" });
+            } else {                
+                res.json({ coupon, message: "Coupon Not Matched" });
+            }
         }
         catch (error) {
             next({ status: 404, message: error.message })
