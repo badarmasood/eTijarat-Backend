@@ -26,7 +26,6 @@ router.delete("/order/product/delete/:id",ordersController.removeProductFromOrde
 // Coupon Routes 
 router.get("/coupon", couponController.getMyCoupons);
 router.post("/coupon", couponController.generateCoupon);
-router.post("/coupon/:id", couponController.validateCoupon);
 
 // Assistant Routes
 router.get("/assistants", assistantController.getAssistants);

@@ -1,6 +1,7 @@
 const express = require("express");
 const productsController = require("../controllers/products_controller");
 const searchController = require("../controllers/search_controller");
+const couponController = require("../controllers/coupon_controller");
 
 const router = express.Router();
 // /products
@@ -12,6 +13,9 @@ router.get("/variation/:id", productsController.getProductVariation);
 router.get("/vendor/:id", searchController.getVendorProducts);
 router.get("/search/:category", searchController.searchByCategory);
 router.get("/search/vendor/:id", searchController.searchByVendor);
+
+router.post("/coupon/:code", couponController.validateCoupon);
+
 
 // router.post("/update/all", productsController.updateAll);
 module.exports = router;

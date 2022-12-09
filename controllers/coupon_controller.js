@@ -25,8 +25,9 @@ const coupon_controller = {
         }
     },
     validateCoupon: async function (req, res, next) {
+        const {cartList} = req.body;
         try {
-            const coupon = await Coupon.findById(req.params.id);
+            const coupon = await Coupon.findOne({ code: req.param.code });
             res.json({ coupon, message: "Coupon Matched" });
         }
         catch (error) {
