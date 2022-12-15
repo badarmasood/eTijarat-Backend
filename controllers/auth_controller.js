@@ -5,14 +5,8 @@ const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const registerVendor = async (req, res, next) => {
-  const {
-    name,
-    email,
-    password,
-    address,
-    documents,
-    addressVerification,
-  } = req.body;
+  const { name, email, password, address, documents, addressVerification } =
+    req.body;
 
   let emailExists = await Vendor.findOne({ email });
 
@@ -26,7 +20,7 @@ const registerVendor = async (req, res, next) => {
       email,
       password: encPassword,
       address,
-      vendordocument,
+      documents,
       addressVerification,
     });
     res.status(201).json({ user, message: "Vendor Registered Successfully" });
