@@ -5,7 +5,7 @@ const coupon_controller = {
     const data = {
       code: req.body.code,
       discount: req.body.discount,
-      productId: req.body.productId,
+      productId: req.body.product,
       vendorId: req.user.id,
     };
     try {
