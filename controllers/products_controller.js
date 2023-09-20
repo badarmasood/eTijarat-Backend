@@ -37,6 +37,15 @@ const getProduct = async (req, res, next) => {
   }
 };
 
+const getProductVariation = async (req, res, next) => {
+  try {
+    const product = await Product.findOne({ variations: { $elemMatch: { _id: req.params.id } } }).populate("vendorId");
+    res.json(product);
+  } catch (error) {
+    next({ status: 404, message: error.message });
+  }
+};
+
 const create = async (req, res, next) => {
   let product;
   const data = {
@@ -49,6 +58,7 @@ const create = async (req, res, next) => {
     sale_price: req.body.sale_price,
     rating: req.body.rating,
     imgGroup: req.body.imgUrl,
+    variations: req.body.variations,
     vendorId: req.user.id,
     id: "123",
   };
@@ -57,6 +67,7 @@ const create = async (req, res, next) => {
   } catch (error) {
     next({ status: 500, message: error.message });
   }
+
   try {
     const temp = product._id;
     console.log("temp", temp);
@@ -178,4 +189,5 @@ module.exports = {
   getProduct,
   addReview,
   getRandomProducts,
+  getProductVariation
 };
